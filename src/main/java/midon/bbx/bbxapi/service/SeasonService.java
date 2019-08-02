@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import midon.bbx.bbxapi.repository.SeasonRepository;
 
-
 @Service
 public class SeasonService {
 
-	SeasonRepository repository;
+	private SeasonRepository repository;
 	
 	@Autowired
 	public SeasonService(SeasonRepository repository) {

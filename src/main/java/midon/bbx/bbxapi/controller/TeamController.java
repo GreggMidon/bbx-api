@@ -11,22 +11,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import midon.bbx.bbxapi.service.SeasonService;
+import midon.bbx.bbxapi.entity.Player;
+import midon.bbx.bbxapi.entity.Team;
+import midon.bbx.bbxapi.service.RosterService;
+import midon.bbx.bbxapi.service.TeamService;
 
 
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(SeasonController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
 	
 	@Autowired
-	SeasonService service;
+	TeamService service;
+	
+	@Autowired
+	RosterService rosterService;
 
 	@GetMapping("/{season}")
-	public ResponseEntity<List<Integer>> getTeams(@PathVariable("season") int season) {
+	public ResponseEntity<List<Team>> getTeams(@PathVariable("season") int season) {
 		logger.debug("Request: /teams/" + String.valueOf(season));
-		return ResponseEntity.ok(service.getSeasons());
+		return ResponseEntity.ok(service.getTeamsBySeason(season));
 	}
 
+	@GetMapping("/{season}/roster/{teamId}")
+	public ResponseEntity<List<Player>> getRoster(@PathVariable("season") int season, @PathVariable("teamId") String teamId) {
+		logger.debug("Request: /teams/" + String.valueOf(season) + "/roster/" + teamId);
+		return ResponseEntity.ok(rosterService.getRoster(teamId, season));
+	}
+	
+	
+	
 }
