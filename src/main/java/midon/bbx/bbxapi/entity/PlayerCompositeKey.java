@@ -6,6 +6,7 @@ import java.util.Objects;
 public class PlayerCompositeKey implements Serializable {
 
 	private static final long serialVersionUID = 2611518443216989123L;
+	
 	private String playerId;
 	private String teamId;
 	private int season;
